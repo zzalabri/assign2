@@ -13,9 +13,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,9 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import assign2.ngram.NGramException;
@@ -40,12 +35,14 @@ public class NGramGUI extends JFrame implements ActionListener {
 	private static final long serialVersionUID = -7031008862559936404L;
 	private static final Integer MAX_RESULTS = 5;
 	
+	private static final int DIMENSION_WIDTH = 600;
+	private static final int DIMENSION_HEIGHT = 500;
+	private static final int BORDER_lAYOUT = 10;
+	
 	private JButton btnSearch = new JButton("Search");
     private JButton btnChart = new JButton("Chart");
     private JButton btnResult = new JButton("Result");
-	//private JButton btnExit = new JButton("Exit");
 	
-    private ResultPanel textResults;
 	private BarChart chartResults;
 	private ChartPanel chart;
 	
@@ -69,18 +66,15 @@ public class NGramGUI extends JFrame implements ActionListener {
     private JPanel bottomPanel = new JPanel(new GridLayout(1, 2, 10, 10));
     GridBagConstraints grid = new GridBagConstraints();
     
-    private NGramStore ngramsMap;
-    
-  //  private int predictionsNumber = 0;
     
     public NGramGUI(String guiName) {
 		super(guiName);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(new Dimension(600, 500));
+        setSize(new Dimension(DIMENSION_WIDTH, DIMENSION_HEIGHT));
         setResizable(true);
 
-        setLayout(new BorderLayout(10, 10));
+        setLayout(new BorderLayout(BORDER_lAYOUT, BORDER_lAYOUT));
 
         fileMI.add(openFileMenu);
         fileMI.add(exitMenu);
@@ -110,9 +104,8 @@ public class NGramGUI extends JFrame implements ActionListener {
 
         mainPanel.add(headPanel, BorderLayout.NORTH);
         mainPanel.add(resultPanel, BorderLayout.CENTER);
-//        mainPanel.add(resultChartPanel, BorderLayout.CENTER);
         mainPanel.add(bottomPanel, BorderLayout.SOUTH);
-        mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(BORDER_lAYOUT, BORDER_lAYOUT, BORDER_lAYOUT, BORDER_lAYOUT));
         add(mainPanel);
 	}
 	/* (non-Javadoc)
@@ -122,7 +115,7 @@ public class NGramGUI extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent arg) {
 		String buttonString = arg.getActionCommand();
 		String result = "";
-		Pattern pattern = Pattern.compile("[^\\w\\s,]");
+		Pattern pattern = Pattern.compile("[^\\w\\s,]");	//Check for Char Not in (words,numbers,space or comma)
 	    Matcher matcher = pattern.matcher("");
 	    boolean invalidInput= false;
 		NGramStore store = new NGramStore();
@@ -169,16 +162,11 @@ public class NGramGUI extends JFrame implements ActionListener {
 		} else if (buttonString.equals("Result")) {
 			resultPanel.setVisible(true);
 			btnChart.setVisible(false);
-//			textPanel.setVisible(true);
-//			chartPanel.setVisible(false);
 		} else if (buttonString.equals("Chart")) {
 			resultChartPanel.setVisible(true);
 			resultPanel.setVisible(false);
 		} 
 	}
-	
-	
-	
 	
 	private void chartCereator(NGramStore store, String[] contexts)
 			throws NGramException {
@@ -197,12 +185,6 @@ public class NGramGUI extends JFrame implements ActionListener {
 			this.getContentPane().repaint();
 		} // end else 
 
-		//displays the text first
-		//resultPanel.setVisible(true);
-//		chart.setVisible(false);
-		//enable the buttons
-//		btnSearch.setEnabled(true);
-//		btnChart.setEnabled(true);
 	}
 
 }
