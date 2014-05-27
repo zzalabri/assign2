@@ -23,7 +23,7 @@ public class Suggestions {
 			@Override
 			public void run() {
 
-				NGramGUI2 nGramGui = new NGramGUI2("NGram Assignment");
+				NGramGUI nGramGui = new NGramGUI("NGram Assignment");
 				nGramGui.setMaximumSize(new Dimension(1200, 500));
 			nGramGui.setMinimumSize(new Dimension(600, 500));
 				nGramGui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

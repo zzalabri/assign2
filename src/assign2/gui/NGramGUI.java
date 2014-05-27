@@ -35,10 +35,9 @@ import assign2.ngram.NGramException;
 import assign2.ngram.NGramStore;
 
 
-public class NGramGUI2 extends JFrame implements ActionListener {
+public class NGramGUI extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = -7031008862559936404L;
-	private static final String REGEX = "[\\w[']]*";
 	private static final Integer MAX_RESULTS = 5;
 	
 	private JButton btnSearch = new JButton("Search");
@@ -74,7 +73,7 @@ public class NGramGUI2 extends JFrame implements ActionListener {
     
   //  private int predictionsNumber = 0;
     
-    public NGramGUI2(String guiName) {
+    public NGramGUI(String guiName) {
 		super(guiName);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
