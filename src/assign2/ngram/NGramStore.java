@@ -1,7 +1,7 @@
 /**  
  * @title NGramNode.java  
  * @package assign2.ngram  
- * @author khaled  
+ * @author Zahran - n8964955   
  * @version V1.0  
  * created 22/05/2014  
  */
