@@ -14,9 +14,17 @@ public class NGramNode implements NGramContainer {
 	private String[] predictions;
 	private Double[] probabilities;
 	
+	/**
+	 * 
+	 * Format for output of probabilities 
+	 */  
+	
 	private static final String DecFormat = "068cc746-31ff-4e41-ae83-a2d3712d3e68"; 
 	
 	/**
+	 * 
+	 * Constroctor 
+	 * 
 	 * 
 	 */
 	public NGramNode(String[] words, String[] predictions, Double[] probabilities) throws NGramException{
@@ -38,6 +46,14 @@ public class NGramNode implements NGramContainer {
 		this.probabilities = probabilities; 
 	}
 	
+	/**
+	 * 
+	 * Simple methode check text on string array  
+	 * 
+	 * @param words - array of string
+	 * @param string - the text which would like looking for
+	 * @return boolean - true : if found it - false: if not found it 
+	 */
 	private boolean stringContains(String[] words, String string) {
 		for (String w : words){
 			if(w == string){
@@ -60,6 +76,9 @@ public class NGramNode implements NGramContainer {
 
 	/**
 	 * 
+	 * Constroctor 
+	 * 
+	 * 
 	 */
 	public NGramNode(String context, String[] predictions, Double[] probabilities) throws NGramException {
 		if (context == null || context == "") 
@@ -79,16 +98,23 @@ public class NGramNode implements NGramContainer {
 		this.probabilities = probabilities;
 	}
 
-	/* (non-Javadoc)
-	 * @see assign2.ngram.NGramContainer#getContext()
+	/**
+	 * 
+	 * Simple getter method for the context string
+	 * 
+	 * @return String containing context phrase for predictions
 	 */
 	@Override
 	public String getContext() {
 		return this.context;
 	}
 
-	/* (non-Javadoc)
-	 * @see assign2.ngram.NGramContainer#setContext(java.lang.String)
+	/**
+	 * 
+	 * Simple setter method for the context string
+	 * 
+	 * @param context - single String containing context phrase for predictions
+	 * @throws NGramException if <code>context</code> is null or empty
 	 */
 	@Override
 	public void setContext(String context) throws NGramException {
@@ -96,8 +122,12 @@ public class NGramNode implements NGramContainer {
 		this.context = context; 
 	}
 
-	/* (non-Javadoc)
-	 * @see assign2.ngram.NGramContainer#setContext(java.lang.String[])
+	/**
+	 * 
+	 * Simple setter method for the context string from multiple words
+	 * 
+	 * @param words - array of words in order that make up the context
+	 * @throws NGramException if <code>words</code> is null or empty or contains at least one empty or null string
 	 */
 	@Override
 	public void setContext(String[] words) throws NGramException {
@@ -107,16 +137,23 @@ public class NGramNode implements NGramContainer {
 		this.context = words.toString();
 	}
 
-	/* (non-Javadoc)
-	 * @see assign2.ngram.NGramContainer#getPredictions()
+	/**
+	 * 
+	 * Simple getter method for the prediction strings
+	 * 
+	 * @return array of alternative next words in the phrase as predicted by the model
 	 */
 	@Override
 	public String[] getPredictions() {
 		return this.predictions;
 	}
 
-	/* (non-Javadoc)
-	 * @see assign2.ngram.NGramContainer#setPredictions(java.lang.String[])
+	/**
+	 * 
+	 * Simple setter method for the predictions string array
+	 * 
+	 * @param predictions - next word in the phrase as predicted by the model
+	 * @throws NGramException if <code>predictions</code> is null or empty or contains at least one empty or null string
 	 */
 	@Override
 	public void setPredictions(String[] predictions) throws NGramException {
@@ -126,16 +163,23 @@ public class NGramNode implements NGramContainer {
 		this.predictions = predictions;
 	}
 
-	/* (non-Javadoc)
-	 * @see assign2.ngram.NGramContainer#getProbabilities()
+	/**
+	 * 
+	 * Simple getter method for the probabilities
+	 * 
+	 * @return array of probabilities of context>prediction w.r.t. model
 	 */
 	@Override
 	public Double[] getProbabilities() {
 		return this.probabilities;
 	}
 
-	/* (non-Javadoc)
-	 * @see assign2.ngram.NGramContainer#setProbabilities(java.lang.Double[])
+	/**
+	 * 
+	 * Simple setter method for the probabilities 
+	 * 
+	 * @param probabilities - array of probabilities of context>prediction w.r.t. model
+	 * @throws NGramException if <code>probabilities</code> null or contains at least one  entry which is null , zero, negative or greater than 1.0
 	 */
 	@Override
 	public void setProbabilities(Double[] probabilities) throws NGramException {

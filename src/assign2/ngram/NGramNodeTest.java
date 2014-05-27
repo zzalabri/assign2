@@ -108,7 +108,11 @@ public class NGramNodeTest {
 		testNode.setContext(test);
 		assertEquals("new context", testNode.getContext());
 	}
+<<<<<<< HEAD
 	
+=======
+		
+>>>>>>> a655d3dc3a3cf3e54961e3e8d8544a33f7ef383e
 	@Test
 	(expected = NGramException.class)
 	public void EmptyTestSetContextArray() throws NGramException {
