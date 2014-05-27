@@ -1,0 +1,10 @@
+* Pair names and student numbers:
+     - Khaled Mohammed H Albishre    ,  SN: n8560081
+     - Zahran Zahir Mohammed Al-Abri ,  SN: n8964955
+
+* This is to confirm that Khaled and Zahran worked both on this assignment.
+     - Khaled: I agree with this contribution.
+     - Zahran: I agree with this contribution.
+
+* We used the Github in the middle of the project, that's why the number of comments are not high enough.
+  Although, we distributed the work efficiency, so both of us worked as Coder as well as Tester (in seprate classes and unit tests). This will be clear on the @auther in each class.
