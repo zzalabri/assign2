@@ -39,7 +39,7 @@ public class BarChart extends JFrame {
         // we put the chart into a panel
         ChartPanel chartPanel = new ChartPanel(chart);
         // default size
-        chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
+        chartPanel.setPreferredSize(new java.awt.Dimension(600,500));
         // add it to our application
         setContentPane(chartPanel);
     }

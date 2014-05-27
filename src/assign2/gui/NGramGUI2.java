@@ -46,7 +46,9 @@ public class NGramGUI2 extends JFrame implements ActionListener {
 	//private JButton btnExit = new JButton("Exit");
 	
     private ResultPanel textResults;
-	private ChartPanel chartResults;
+	private BarChart chartResults;
+	private ChartPanel chart;
+	
     
 	private JTextField txtContext = new JTextField();
 	
@@ -60,7 +62,6 @@ public class NGramGUI2 extends JFrame implements ActionListener {
     
     private JMenu helpMI = new JMenu("Help");
     private JMenuItem aboutMenu = new JMenuItem("About");
-    //private JTable table = new JTable(5, 2);
     private JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
     private JPanel resultPanel = new JPanel(new BorderLayout());
     private JPanel resultChartPanel = new JPanel(new BorderLayout());
@@ -93,10 +94,7 @@ public class NGramGUI2 extends JFrame implements ActionListener {
      
         resultPanel = new ResultPanel();
      	this.getContentPane().add(resultPanel, BorderLayout.CENTER);
-     	resultChartPanel = new ChartPanel();
-     	this.getContentPane().add(resultChartPanel, BorderLayout.CENTER);
-        
-
+     	
         headPanel.add(lblSearch);
         headPanel.add(txtContext);
 		headPanel.add(btnSearch);
@@ -112,6 +110,7 @@ public class NGramGUI2 extends JFrame implements ActionListener {
 
         mainPanel.add(headPanel, BorderLayout.NORTH);
         mainPanel.add(resultPanel, BorderLayout.CENTER);
+//        mainPanel.add(resultChartPanel, BorderLayout.CENTER);
         mainPanel.add(bottomPanel, BorderLayout.SOUTH);
         mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         add(mainPanel);
@@ -127,7 +126,12 @@ public class NGramGUI2 extends JFrame implements ActionListener {
 		String[] contexts = {};
 		
 		if (buttonString.equals("Search")) {
+<<<<<<< HEAD
             if(txtContext.getText() == null || txtContext.getText().equals("") || Pattern.matches(REGEX, txtContext.getText())  ) {
+=======
+            //if(txtContext.getText() == null || txtContext.getText().equals("") || Pattern.matches(REGEX, txtContext.getText())  ) {
+			if( Pattern.matches(REGEX, txtContext.getText())  ) {
+>>>>>>> 7b5cf1a780568207bdcd4f2f60592d6b3a380839
                 result += "Invalid Input ";
             } else {
 
@@ -136,30 +140,79 @@ public class NGramGUI2 extends JFrame implements ActionListener {
                   result += "Invalid context ";
                 } else {
                     for (String context : contexts) {
+<<<<<<< HEAD
                        result += "NGram Results for Query: " + context + "\n";
+=======
+                       result += "\nNGram Results for Query: " + context + "\n\n";
+>>>>>>> 7b5cf1a780568207bdcd4f2f60592d6b3a380839
                         try {
                         	if (!(store.getNGramsFromService(context, MAX_RESULTS))){
                         		result += "No results for this contexts.";
                         	} else {
                         		result += store.getNGram(context).toString();
                         	}
+<<<<<<< HEAD
                         } catch (NGramException nex) {
                             result += "No results for this contexts.";
                         }
                     }
                 }
+=======
+                        	
+                       
+                     //produce the bar chart
+		  	chartCereator(store, contexts);  
+			
+                } catch (NGramException nex) {
+                            result += "No results for this contexts.";
+                        }
+                    
+                  }
+                 
+                
+                }// end else
+>>>>>>> 7b5cf1a780568207bdcd4f2f60592d6b3a380839
             }
 
 			((ResultPanel) resultPanel).updateText(result);
 			
+<<<<<<< HEAD
+=======
+			
+			
+>>>>>>> 7b5cf1a780568207bdcd4f2f60592d6b3a380839
 		} else if (buttonString.equals("Result")) {
 			resultPanel.setVisible(true);
-			btnChart.setVisible(false);
-//			textPanel.setVisible(true);
-//			chartPanel.setVisible(false);
+			resultChartPanel.setVisible(false);
 		} else if (buttonString.equals("Chart")) {
-			resultChartPanel.setVisible(true);
+			//CreateResultChartPanel();
 			resultPanel.setVisible(false);
+			resultChartPanel.setVisible(true);
 		} 
 	}
+	private void chartCereator(NGramStore store, String[] contexts)
+			throws NGramException {
+		chartResults=new BarChart(contexts, store);
+		
+		if(this.chart != null){
+			chart.removeAll();
+			chart.revalidate();
+			chart.setChart(chartResults.getJFreeChart());
+			this.getContentPane().add(chart, BorderLayout.CENTER);
+			this.getContentPane().repaint();
+		}else{
+			chart=new ChartPanel(chartResults.getJFreeChart());
+			chart.setPreferredSize(new java.awt.Dimension(600, 500)); 
+			this.getContentPane().add(this.chart, BorderLayout.CENTER);
+			this.getContentPane().repaint();
+		} // end else 
+
+		//displays the text first
+		//resultPanel.setVisible(true);
+//		chart.setVisible(false);
+		//enable the buttons
+//		btnSearch.setEnabled(true);
+//		btnChart.setEnabled(true);
+	}
+
 }

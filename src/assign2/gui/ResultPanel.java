@@ -1,15 +1,24 @@
+/**  
+ * @title NGramNode.java  
+ * @package assign2.gui  
+ * @author khaled  
+ * @version V1.0  
+ * created 22/05/2014  
+ */
 package assign2.gui;
 
-import java.awt.Color;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import javax.swing.*;
 
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import java.awt.*;
 
 public class ResultPanel extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7027494397725323564L;
+	private JTextArea textArea;
 
+<<<<<<< HEAD
 	private static final long serialVersionUID = -7031008862559936404L;
 	private JTextArea headingQuery;
 	private JTextArea results;
@@ -69,14 +78,33 @@ public ResultPanel(String query, String searchResults) {
 		c.ipady = 80;
 		c.insets = new Insets(0, 10, 10, 10);
 		add(results, c);
+=======
+	public void updateText(String text) {
+		if (textArea != null) {
+			textArea.setText(text);
+		}
+>>>>>>> 7b5cf1a780568207bdcd4f2f60592d6b3a380839
+	}
+
+	public ResultPanel() {
+		textArea = new JTextArea("Please enter some text ...");
+		textArea.setEditable(true);
+		 //add(new JScrollPane(view));
+
+		setBackground(Color.LIGHT_GRAY);
+		setLayout(new BorderLayout());
+		add(new JScrollPane(textArea), BorderLayout.CENTER);
 	}
 	
-	public void setResults(String text) {
-		results.setText(text);
+	public void SetResultText(String result) {
+		StringBuffer resultText = new StringBuffer();
+
+		//Display the results on the results text area
+		resultText.append(result);
+		resultText.append("\n");
+		textArea.setText(resultText.toString());
+
+		this.textArea.setText(result);
+
 	}
-	
-	public void setHeadingQuery(String text) {
-		headingQuery.setText(text);
-	}
-	
 }
