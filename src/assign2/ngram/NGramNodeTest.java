@@ -15,10 +15,7 @@ import java.text.DecimalFormat;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * @author khaled
- *
- */
+
 public class NGramNodeTest {
 	NGramNode testNode;
 	NGramNode testNode2;
@@ -111,14 +108,7 @@ public class NGramNodeTest {
 		testNode.setContext(test);
 		assertEquals("new context", testNode.getContext());
 	}
-		
-//	@Test // need check 
-//	public void ArrayTestSetContext() throws NGramException {
-//		String[] stringArray = {"to", "go", "home"};
-//		testNode.setContext(stringArray);
-//		assertEquals("to go home", testNode.getContext());
-//	}
-		
+	
 	@Test
 	(expected = NGramException.class)
 	public void EmptyTestSetContextArray() throws NGramException {
@@ -277,12 +267,12 @@ public class NGramNodeTest {
 		Double[] testDouble = {1.5, 2.3};
 		testNode2 = new NGramNode(context, predictions, testDouble);
 	}
-	//NGramNodeTests.java      
-	 	/*
-	   	 * Confirm that the API spec has not been violated through the
-	   	 * addition of public fields, constructors or methods that were
-	   	 * not requested
-	   	 */
+	     
+	/*
+	 * Confirm that the API spec has not been violated through the
+	 * addition of public fields, constructors or methods that were
+	 * not requested
+	 */
 	   	@Test
 	   	public void NoExtraPublicMethods() {
 	   		//Extends Object, implements NGramContainer
@@ -318,8 +308,10 @@ public class NGramNodeTest {
 	       @Test
 	       public void TOSTRING_ComplexObject() throws NGramException {
 	     	   	  DecimalFormat df = new DecimalFormat(NGramContainer.DecFormat);
-	    	   	  String test = "be or not to | be : 0.136059\n" + "be or not to | mention : 0.066563\n" + 
-	    	   			  		"be or not to | exceed : 0.032759\n" + "be or not to | say : 0.028824\n" +
+	    	   	  String test = "be or not to | be : 0.136059\n" +
+	     	   	                "be or not to | mention : 0.066563\n" + 
+	    	   			  		"be or not to | exceed : 0.032759\n" + 
+	     	   	                "be or not to | say : 0.028824\n" +
 	    	   			  		"be or not to | the : 0.024524\n";
 	    	   	  testNode.setContext("be or not to");
 	    	   	  testNode.setPredictions(new String[]{"be","mention","exceed","say","the"});
