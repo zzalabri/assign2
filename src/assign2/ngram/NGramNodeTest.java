@@ -143,6 +143,183 @@ public class NGramNodeTest {
 		testNode2 = new NGramNode(testWord, predictions, probabilities);
 	}
 
+	@Test
+	(expected=NGramException.class)
+	public void EmptyTestWordsConstructorContain() throws NGramException {
+		String[] testWords = {"to", "be", ""};
+		testNode2 = new NGramNode(testWords, predictions, probabilities);
+	}
+		
+	@Test
+	(expected=NGramException.class)
+	public void EmptyTestWordsConstructorPredictions() throws NGramException {
+		String[] testArray = {};
+		testNode2 = new NGramNode(words, testArray, probabilities);
+	}
+		
+	@Test
+	(expected=NGramException.class)
+	public void EmptyStringTestWordsConstructorPredictions() throws NGramException {
+		String[] testPredictions = {"", ""};
+		testNode2 = new NGramNode(words, testPredictions, probabilities);
+	}
+		
+	@Test
+	(expected=NGramException.class)
+	public void NullTestWordsConstructorProbabilities() throws NGramException {
+		probabilities = null;
+		testNode2 = new NGramNode(words, predictions, probabilities);
+	}
+				
+	@Test
+	(expected=NGramException.class)
+	public void SizeEmptyTestWordsConstructorProbabilities() throws NGramException {
+		Double[] testDouble = {};
+		testNode2 = new NGramNode(words, predictions, testDouble);
+	}
+		
+	@Test
+	(expected=NGramException.class)
+	public void NegativeTestWordsConstructorProbabilitiesContains() throws NGramException {
+		Double[] testDouble = {-0.456552};
+		testNode2 = new NGramNode(words, predictions, testDouble);
+	}
+		
+	@Test
+	(expected=NGramException.class)
+	public void ZeroTestWordsConstructorProbabilitiesContains() throws NGramException {
+		Double[] testDouble = {0.0};
+		testNode2 = new NGramNode(words, predictions, testDouble);
+	}
+		
+	@Test
+	(expected=NGramException.class)
+	public void GreaterThanOneTestWordsConstructorProbabilitiesContains() throws NGramException {
+		Double[] testDouble = {1.8, 2.9};
+		testNode2 = new NGramNode(words, predictions, testDouble);
+	}
+	
+	// Tests for constructor 
+	// ===========  context
+	
+	@Test
+	(expected=NGramException.class)
+	public void EmptyTestConstructorContext() throws NGramException {
+		testNode2 = new NGramNode("", predictions, probabilities);
+	}
+		
+	@Test
+	(expected=NGramException.class)
+	public void NullTestConstructorContext() throws NGramException {
+		context = null;
+		testNode2 = new NGramNode(context, predictions, probabilities);
+	}
+		
+	@Test
+	(expected=NGramException.class)
+	public void NullTestConstructorPredictions() throws NGramException {
+		predictions = null;
+		testNode2 = new NGramNode(context, predictions, probabilities);
+	}
+		
+	@Test
+	(expected=NGramException.class)
+	public void EmptyTestConstructorPredictions() throws NGramException {
+		String[] testArray = {};
+		testNode2 = new NGramNode(context, testArray, probabilities);
+	}
+		
+	@Test
+	(expected=NGramException.class)
+	public void EmptyStringTestConstructorPredictions() throws NGramException {
+		String[] testPredictions = {"", ""};
+		testNode2 = new NGramNode(context, testPredictions, probabilities);
+	}
+		
+	@Test
+	(expected=NGramException.class)
+	public void NullTestConstructorProbabilities() throws NGramException {
+		probabilities = null;
+		testNode2 = new NGramNode(context, predictions, probabilities);
+	}
+				
+	@Test
+	(expected=NGramException.class)
+	public void EmptyTestConstructorProbabilitiesSize() throws NGramException {
+		Double[] testDouble = {};
+		testNode2 = new NGramNode(context, predictions, testDouble);
+	}
+		
+	@Test
+	(expected=NGramException.class)
+	public void NegativeTestConstructorProbabilitiesContains() throws NGramException {
+		Double[] testDouble = {-0.456552};
+		testNode2 = new NGramNode(context, predictions, testDouble);
+	}
+		
+	@Test
+	(expected=NGramException.class)
+	public void ZeroTestConstructorProbabilitiesContains() throws NGramException {
+		Double[] testDouble = {};
+		testNode2 = new NGramNode(context, predictions, testDouble);
+	}
+		
+	@Test
+	(expected=NGramException.class)
+	public void GreaterThanOneTestconstructorProbabilitiesContains() throws NGramException {
+		Double[] testDouble = {1.5, 2.3};
+		testNode2 = new NGramNode(context, predictions, testDouble);
+	}
+	//NGramNodeTests.java      
+	 	/*
+	   	 * Confirm that the API spec has not been violated through the
+	   	 * addition of public fields, constructors or methods that were
+	   	 * not requested
+	   	 */
+	   	@Test
+	   	public void NoExtraPublicMethods() {
+	   		//Extends Object, implements NGramContainer
+	   		final int toStringCount = 1;
+	   		final int NumObjectClassMethods = Array.getLength(Object.class.getMethods());
+	   		final int NumInterfaceMethods = Array.getLength(NGramContainer.class.getMethods());
+	   		final int NumNGramNodeClassMethods = Array.getLength(NGramNode.class.getMethods());
+	   		assertTrue("obj:"+NumObjectClassMethods+":inter:"+NumInterfaceMethods+" - 1 (toString()) = class:"+NumNGramNodeClassMethods,
+	   				(NumObjectClassMethods+NumInterfaceMethods-toStringCount)==NumNGramNodeClassMethods);
+	   	}
+	   	
+	   	@Test 
+	   	public void NoExtraPublicFields() {
+	   	//Extends Object, implements NGramContainer
+	   		final int NumObjectClassFields = Array.getLength(Object.class.getFields());
+	   		final int NumInterfaceFields = Array.getLength(NGramContainer.class.getFields());
+	   		final int NumNGramNodeClassFields = Array.getLength(NGramNode.class.getFields());
+	   		assertTrue("obj + interface = class",(NumObjectClassFields+NumInterfaceFields)==NumNGramNodeClassFields);
+	   	}
+	   	
+	   	@Test 
+	   	public void NoExtraPublicConstructors() {
+	   	//Extends Object, implements NGramContainer
+	   		final int ExtraConsCount =1;
+	   		final int NumObjectClassConstructors = Array.getLength(Object.class.getConstructors());
+	   		final int NumInterfaceConstructors = Array.getLength(NGramContainer.class.getConstructors());
+	   		final int NumNGramNodeClassConstructors = Array.getLength(NGramNode.class.getConstructors());
+	   		assertTrue("obj:"+NumObjectClassConstructors+":inter:"+NumInterfaceConstructors+" 1 (extra) = class:"+NumNGramNodeClassConstructors,
+	   				(NumObjectClassConstructors+NumInterfaceConstructors+ExtraConsCount)==NumNGramNodeClassConstructors);
+	   	}
+		
+
+	       @Test
+	       public void TOSTRING_ComplexObject() throws NGramException {
+	     	   	  DecimalFormat df = new DecimalFormat(NGramContainer.DecFormat);
+	    	   	  String test = "be or not to | be : 0.136059\n" + "be or not to | mention : 0.066563\n" + 
+	    	   			  		"be or not to | exceed : 0.032759\n" + "be or not to | say : 0.028824\n" +
+	    	   			  		"be or not to | the : 0.024524\n";
+	    	   	  testNode.setContext("be or not to");
+	    	   	  testNode.setPredictions(new String[]{"be","mention","exceed","say","the"});
+	    	   	  testNode.setProbabilities(new Double[]{0.13605912332,0.066563234345,0.03275912314,0.028823899932,0.0245242343});
+	    	   	  String str = testNode.toString(); 
+	    	      assertEquals(test,str);
+	       }
 
 	
 }
