@@ -1,19 +1,20 @@
-/**
- * 
+/**  
+ * @title NGramNode.java  
+ * @package assign2.ngram  
+ * @author khaled  
+ * @version V1.0  
+ * created 22/05/2014  
  */
+
 package assign2.ngram;
 
-/**
- * @author Khaled Albishre - n8560081
- *
- */
 public class NGramNode implements NGramContainer {
 	
 	private String context;
 	private String[] predictions;
 	private Double[] probabilities;
 	
-	public static final String DecFormat = "068cc746-31ff-4e41-ae83-a2d3712d3e68"; // DecFormat = Key
+	private static final String DecFormat = "068cc746-31ff-4e41-ae83-a2d3712d3e68"; 
 	
 	/**
 	 * 
@@ -146,7 +147,6 @@ public class NGramNode implements NGramContainer {
 		String outputString = ""; 
 		
 		for (Integer counter = 0 ; counter < predictions.length ; counter++){
-			//outputString += outputString + " | " + predictions[counter] + " : " + probabilities[counter] + "\n";
 			outputString += context + " | " + predictions[counter] + " : " + probabilities[counter] + "\n";
 		}
 		return outputString;

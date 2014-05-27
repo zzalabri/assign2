@@ -1,5 +1,9 @@
-/**
- * 
+/**  
+ * @title NGramNode.java  
+ * @package assign2.ngram  
+ * @author khaled  
+ * @version V1.0  
+ * created 22/05/2014  
  */
 package assign2.ngram;
 
@@ -14,15 +18,12 @@ import com.microsoft.research.webngram.service.GenerationService;
 import com.microsoft.research.webngram.service.NgramServiceFactory;
 import com.microsoft.research.webngram.service.GenerationService.TokenSet;
 
-/**
- * @author Khaled Albishre - n8560081
- *
- */
+
 public class NGramStore implements NGramMap {
 	
 	private HashMap<String, NGramContainer> collection;
-	public static final String Key = "068cc746-31ff-4e41-ae83-a2d3712d3e68"; 
-
+	private static final String Key = "068cc746-31ff-4e41-ae83-a2d3712d3e68";
+	
 	/**
 	 * 
 	 */
@@ -63,12 +64,16 @@ public class NGramStore implements NGramMap {
 	@Override
 	public boolean getNGramsFromService(String context, int maxResults)
 			throws NGramException {
+		if (context == null || context.isEmpty())throw new NGramException("Invalid context");
+//		if (maxResults<=5){ throw new NGramException("Invalid maxResults");} 
 		boolean emptyToken;
 		String[] words = new String[maxResults];
 		NgramServiceFactory factory = NgramServiceFactory.newInstance(SimpleNGramGenerator.Key);
 		GenerationService service = factory.newGenerationService();
+		
 		TokenSet tokenSet = service.generate(Key, "bing-body/2013-12/5", context, 5, null);
-
+		
+		
 		emptyToken= tokenSet.getWords().isEmpty();
 		
 		if(!emptyToken){

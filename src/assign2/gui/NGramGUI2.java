@@ -17,7 +17,6 @@ import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -38,6 +37,7 @@ import assign2.ngram.NGramStore;
 public class NGramGUI2 extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = -7031008862559936404L;
+	private static final String REGEX = "[\\w[']]*";
 	private static final Integer MAX_RESULTS = 5;
 	
 	private JButton btnSearch = new JButton("Search");
@@ -46,7 +46,9 @@ public class NGramGUI2 extends JFrame implements ActionListener {
 	//private JButton btnExit = new JButton("Exit");
 	
     private ResultPanel textResults;
-	private ChartPanel chartResults;
+	private BarChart chartResults;
+	private ChartPanel chart;
+	
     
 	private JTextField txtContext = new JTextField();
 	
@@ -60,7 +62,6 @@ public class NGramGUI2 extends JFrame implements ActionListener {
     
     private JMenu helpMI = new JMenu("Help");
     private JMenuItem aboutMenu = new JMenuItem("About");
-    //private JTable table = new JTable(5, 2);
     private JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
     private JPanel resultPanel = new JPanel(new BorderLayout());
     private JPanel resultChartPanel = new JPanel(new BorderLayout());
@@ -93,10 +94,7 @@ public class NGramGUI2 extends JFrame implements ActionListener {
      
         resultPanel = new ResultPanel();
      	this.getContentPane().add(resultPanel, BorderLayout.CENTER);
-     	resultChartPanel = new ChartPanel();
-     	this.getContentPane().add(resultChartPanel, BorderLayout.CENTER);
-        
-
+     	
         headPanel.add(lblSearch);
         headPanel.add(txtContext);
 		headPanel.add(btnSearch);
@@ -112,6 +110,7 @@ public class NGramGUI2 extends JFrame implements ActionListener {
 
         mainPanel.add(headPanel, BorderLayout.NORTH);
         mainPanel.add(resultPanel, BorderLayout.CENTER);
+//        mainPanel.add(resultChartPanel, BorderLayout.CENTER);
         mainPanel.add(bottomPanel, BorderLayout.SOUTH);
         mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         add(mainPanel);
@@ -123,54 +122,78 @@ public class NGramGUI2 extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent arg) {
 		String buttonString = arg.getActionCommand();
 		String result = "";
-		Pattern pattern = Pattern.compile("[^\\w\\s,]");
-	    Matcher matcher = pattern.matcher("");
-	    boolean invalidInput= false;
 		NGramStore store = new NGramStore();
 		String[] contexts = {};
 		
 		if (buttonString.equals("Search")) {
-            if(txtContext.getText() == null || txtContext.getText().equals("") )
-            	result+= "Please enter some text...";
-            
-            else{
-			    matcher = pattern.matcher(txtContext.getText());
-			    invalidInput= matcher.find();
-			    
-				if( invalidInput  ) {
-	                result += "Invalid Input ";
-	            } else {
-	            	
-	                contexts = txtContext.getText().split(",");
-	                if (contexts.length > MAX_RESULTS  ) {
-	                  result += "Invalid context ";
-	                } else {
-	                    for (String context : contexts) {
-	                       result += "\nNGram Results for Query: " + context + "\n\n";
-	                        try {
-	                        	if (!(store.getNGramsFromService(context, MAX_RESULTS))){
-	                        		result += "No results for this contexts.";
-	                        	} else {
-	                        		result += store.getNGram(context).toString();
-	                        	}
-	                        } catch (NGramException nex) {
-	                            result += "No results for this contexts.";
-	                        }
-	                    }
-	                }
-	            }
-	
-				((ResultPanel) resultPanel).updateText(result);
+            //if(txtContext.getText() == null || txtContext.getText().equals("") || Pattern.matches(REGEX, txtContext.getText())  ) {
+			if( Pattern.matches(REGEX, txtContext.getText())  ) {
+                result += "Invalid Input ";
+            } else {
+
+                contexts = txtContext.getText().split(",");
+                if (contexts.length > MAX_RESULTS  ) {
+                  result += "Invalid context ";
+                } else {
+                    for (String context : contexts) {
+                       result += "\nNGram Results for Query: " + context + "\n\n";
+                        try {
+                        	if (!(store.getNGramsFromService(context, MAX_RESULTS))){
+                        		result += "No results for this contexts.";
+                        	} else {
+                        		result += store.getNGram(context).toString();
+                        	}
+                        	
+                       
+                     //produce the bar chart
+		  	chartCereator(store, contexts);  
+			
+                } catch (NGramException nex) {
+                            result += "No results for this contexts.";
+                        }
+                    
+                  }
+                 
+                
+                }// end else
             }
-            
+
+			((ResultPanel) resultPanel).updateText(result);
+			
+			
+			
 		} else if (buttonString.equals("Result")) {
 			resultPanel.setVisible(true);
-			btnChart.setVisible(false);
-//			textPanel.setVisible(true);
-//			chartPanel.setVisible(false);
+			resultChartPanel.setVisible(false);
 		} else if (buttonString.equals("Chart")) {
-			resultChartPanel.setVisible(true);
+			//CreateResultChartPanel();
 			resultPanel.setVisible(false);
+			resultChartPanel.setVisible(true);
 		} 
 	}
+	private void chartCereator(NGramStore store, String[] contexts)
+			throws NGramException {
+		chartResults=new BarChart(contexts, store);
+		
+		if(this.chart != null){
+			chart.removeAll();
+			chart.revalidate();
+			chart.setChart(chartResults.getJFreeChart());
+			this.getContentPane().add(chart, BorderLayout.CENTER);
+			this.getContentPane().repaint();
+		}else{
+			chart=new ChartPanel(chartResults.getJFreeChart());
+			chart.setPreferredSize(new java.awt.Dimension(600, 500)); 
+			this.getContentPane().add(this.chart, BorderLayout.CENTER);
+			this.getContentPane().repaint();
+		} // end else 
+
+		//displays the text first
+		//resultPanel.setVisible(true);
+//		chart.setVisible(false);
+		//enable the buttons
+//		btnSearch.setEnabled(true);
+//		btnChart.setEnabled(true);
+	}
+
 }
