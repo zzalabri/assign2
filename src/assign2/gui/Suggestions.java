@@ -14,8 +14,10 @@ import javax.swing.SwingUtilities;
 
 public class Suggestions {
 
-	private static final int WIDTH = 1600;
-	private static final int HEIGHT = 1500;
+	private static final int MAX_WIDTH = 1600;
+	private static final int MAX_HEIGHT = 1500;
+	private static final int MIN_WIDTH = 600;
+	private static final int MIN_HEIGHT = 500;
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
@@ -24,8 +26,8 @@ public class Suggestions {
 			public void run() {
 
 				NGramGUI nGramGui = new NGramGUI("NGram Assignment");
-				nGramGui.setMaximumSize(new Dimension(1200, 500));
-			nGramGui.setMinimumSize(new Dimension(600, 500));
+				nGramGui.setMaximumSize(new Dimension(MAX_WIDTH, MAX_HEIGHT));
+				nGramGui.setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
 				nGramGui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				nGramGui.pack();
 				nGramGui.setVisible(true);
