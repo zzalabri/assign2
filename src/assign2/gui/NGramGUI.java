@@ -34,89 +34,75 @@ public class NGramGUI extends JFrame implements ActionListener {
 		super("NGram GUI");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)	;
 		setLayout(new GridBagLayout());
-		GridBagConstraints gridBagConstraints = new GridBagConstraints();
+		GridBagConstraints c = new GridBagConstraints();
 	    textResults = new ResultPanel();
 	    inputField = new JTextField("");
 	    submitButton = new JButton("Submit");
 	    //Create ngram store
 		store = new NGramStore();		
-	    gridBagConstraints = setTextResultsPosition();
+	    c = setTextResultsPosition();
 	    submitButton.addActionListener(this);
 	    
-	    add(textResults, gridBagConstraints);
-	    gridBagConstraints.gridx = 1;
-	    gridBagConstraints.gridy = 3;
-	    gridBagConstraints.gridheight = 1;
-	    gridBagConstraints.gridwidth = 1;
-	    gridBagConstraints.weightx = 0.4;
-	    gridBagConstraints.weighty = 1;
-	    gridBagConstraints.insets = new Insets(0, 5, 0, 0);
-	    add(inputField, gridBagConstraints);
-	    gridBagConstraints.gridx = 2;
-	    gridBagConstraints.gridy = 3;
-	    gridBagConstraints.weightx = 0.2;
-	    gridBagConstraints.insets = new Insets(0, 10, 0, 50);
-	    add(submitButton, gridBagConstraints );
+	    add(textResults, c);
+	    c.gridx = 1;
+	    c.gridy = 3;
+	    c.gridheight = 1;
+	    c.gridwidth = 1;
+	    c.weightx = 0.4;
+	    c.weighty = 1;
+	    c.insets = new Insets(0, 5, 0, 0);
+	    add(inputField, c);
+	    c.gridx = 2;
+	    c.gridy = 3;
+	    c.weightx = 0.2;
+	    c.insets = new Insets(0, 10, 0, 50);
+	    add(submitButton, c );
 	}
 
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String buttonString = e.getActionCommand();
-		String[] contexts;
 		
 		  if (buttonString.equals("Submit")) {
 			try {
-				//if (inputField.getText().matches(REGEX)) {
-					contexts = parseInput(inputField.getText());
-					//==================================
-					textResults = new ResultPanel("   ,,,  Wrong Entry222   ,,,", "   ,,,  Wrong Entry   ,,,");
-					GridBagConstraints gridBagConstraints = setTextResultsPosition();
-					add(textResults, gridBagConstraints);
-					validate();
-					//==================================
+				if (inputField.getText().matches(REGEX)) {
+					String[] contexts = inputField.getText().split(",");
 					for (String context : contexts) {
 						store.getNGramsFromService(context, MAX_RESULTS);
-					//}
-				//} else {
-				//	throw new NGramException();
+					}
+				} else {
+					throw new NGramException();
 				}
 			
 			} catch (NGramException e1) {
 				e1.printStackTrace();
 			}
-			//addNewResults();
+			addNewResults();
 		  }		
-	}
-	
-	private String[] parseInput(String text) throws NGramException {
-		
-		String[] contexts = inputField.getText().split(",");
-		
-		return contexts;
 	}
 	
 	private void addNewResults() {
 		String queryResult = store.toString();
-		GridBagConstraints gridBagConstraints = new GridBagConstraints();
+		GridBagConstraints c = new GridBagConstraints();
 		remove(textResults);
 		textResults = new ResultPanel(inputField.getText(), queryResult);
-		gridBagConstraints = setTextResultsPosition();
-		add(textResults, gridBagConstraints);
+		c = setTextResultsPosition();
+		add(textResults, c);
 		validate();
 	}
 	
 	private GridBagConstraints setTextResultsPosition() {
-		GridBagConstraints gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-	    gridBagConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
-	    gridBagConstraints.gridwidth = 3;
-	    gridBagConstraints.gridheight = 3;
-	    gridBagConstraints.weightx = 0.5;
-	    gridBagConstraints.weighty = 0.1;
-	    gridBagConstraints.gridx = 0;
-	    gridBagConstraints.gridy = 0;
-	    gridBagConstraints.insets = new Insets(5, 5, 5, 5);
-	    return gridBagConstraints;
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.HORIZONTAL;
+	    c.anchor = GridBagConstraints.FIRST_LINE_START;
+	    c.gridwidth = 3;
+	    c.gridheight = 3;
+	    c.weightx = 0.5;
+	    c.weighty = 0.1;
+	    c.gridx = 0;
+	    c.gridy = 0;
+	    c.insets = new Insets(5, 5, 5, 5);
+	    return c;
 	}
 }
