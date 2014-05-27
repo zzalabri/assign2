@@ -25,7 +25,7 @@ public class NGramStore implements NGramMap {
 	private static final String Key = "068cc746-31ff-4e41-ae83-a2d3712d3e68";
 	
 	/**
-	 * 
+	 * Constractor 
 	 */
 	public NGramStore() {
 		this.collection = new HashMap<String, NGramContainer>();
