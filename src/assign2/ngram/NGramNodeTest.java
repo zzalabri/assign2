@@ -112,13 +112,6 @@ public class NGramNodeTest {
 		assertEquals("new context", testNode.getContext());
 	}
 		
-//	@Test // need check 
-//	public void ArrayTestSetContext() throws NGramException {
-//		String[] stringArray = {"to", "go", "home"};
-//		testNode.setContext(stringArray);
-//		assertEquals("to go home", testNode.getContext());
-//	}
-		
 	@Test
 	(expected = NGramException.class)
 	public void EmptyTestSetContextArray() throws NGramException {
