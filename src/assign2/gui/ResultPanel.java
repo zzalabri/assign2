@@ -27,7 +27,6 @@ public class ResultPanel extends JPanel {
 	public ResultPanel() {
 		textArea = new JTextArea("Please enter some text ...");
 		textArea.setEditable(true);
-		 //add(new JScrollPane(view));
 
 		setBackground(Color.LIGHT_GRAY);
 		setLayout(new BorderLayout());
