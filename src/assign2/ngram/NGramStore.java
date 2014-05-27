@@ -31,24 +31,40 @@ public class NGramStore implements NGramMap {
 		this.collection = new HashMap<String, NGramContainer>();
 	}
 
-	/* (non-Javadoc)
-	 * @see assign2.ngram.NGramMap#addNGram(assign2.ngram.NGramContainer)
+	/**
+	 * 
+	 * (Silently) Add an ngram to the Map. If the <code>context</code> does not exist in the Map, 
+	 * the entry is added.<br>
+	 * If the <code>context</code> exists in the Map, then the associated ngram is 
+	 * updated (and thus overwritten). 
+	 * 
+	 * @param ngram - ngram to be added 
 	 */
 	@Override
 	public void addNGram(NGramContainer ngram) {
 		collection.put(ngram.getContext(), ngram);
 	}
 
-	/* (non-Javadoc)
-	 * @see assign2.ngram.NGramMap#removeNGram(java.lang.String)
+	/**
+	 * 
+	 * (Silently) Remove an ngram from the Map. If the <code>context</code> does not exist in the Map, 
+	 * the entry is not removed, but no status is returned. We guarantee that the entry no longer exists<br>
+	 * If the <code>context</code> exists in the Map, then the associated ngram is removed. 
+	 * 
+	 * @param context - context string for ngram to be removed
 	 */
 	@Override
 	public void removeNGram(String context) {
 		collection.remove(context);
 	}
 
-	/* (non-Javadoc)
-	 * @see assign2.ngram.NGramMap#getNGram(java.lang.String)
+	/**
+	 * 
+	 * Find the NGram associated with the context if it exists in the Map. 
+	 * Return null if the context is not a key in the Map. 
+	 * 
+	 * @param context
+	 * @return NGramContainer associated with the context or null 
 	 */
 	@Override
 	public NGramContainer getNGram(String context) {
@@ -58,19 +74,27 @@ public class NGramStore implements NGramMap {
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see assign2.ngram.NGramMap#getNGramsFromService(java.lang.String, int)
+	/**
+	 * 
+	 * Get the top maxResults ngrams returned from the service.  
+	 * 
+	 * @param context - the context for the ngram search 
+	 * @param maxResults - the maximum number of 
+	 * @return true and store the NGram in the Map if the service returns at least one result<br>
+	 * return false and do not store the bare context if the service returns no predictions
+	 * @throws NGramException if the service fails to connect or if the NGramContainer cannot be 
+	 * created. 
 	 */
 	@Override
 	public boolean getNGramsFromService(String context, int maxResults)
 			throws NGramException {
 		if (context == null || context.isEmpty())throw new NGramException("Invalid context");
-//		if (maxResults<=5){ throw new NGramException("Invalid maxResults");} 
 		boolean emptyToken;
 		String[] words = new String[maxResults];
 		NgramServiceFactory factory = NgramServiceFactory.newInstance(SimpleNGramGenerator.Key);
-		GenerationService service = factory.newGenerationService();
 		
+		GenerationService service = factory.newGenerationService();
+		if (service == null) throw new NGramException("Erorr in connection");
 		TokenSet tokenSet = service.generate(Key, "bing-body/2013-12/5", context, 5, null);
 		
 		

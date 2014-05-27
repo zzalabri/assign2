@@ -63,6 +63,13 @@ public class NGramNode implements NGramContainer {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * Simple methode invalid number for double array  
+	 * 
+	 * @param probabilities2 - array probabilities
+	 * @return boolean - true : if found it - false: if not found it 
+	 */
 	private boolean invalidNumbers(Double[] probabilities2) {
 		for (Double p : probabilities2){
 			if (p <= 0 || p > 1){
@@ -71,8 +78,6 @@ public class NGramNode implements NGramContainer {
 		}
 		return false;
 	}
-
-
 
 	/**
 	 * 

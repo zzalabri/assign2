@@ -16,6 +16,8 @@ import org.junit.Test;
 
 
 public class NGramStoreTest {
+	
+	
 	NGramStore tester;
 	String context = "be or not to";
 	String[] words = {"be", "or", "not", "to"};
@@ -34,13 +36,6 @@ public class NGramStoreTest {
 		boolean testTrue = tester.getNGramsFromService("be or not to", 5);
 		assertEquals(true, testTrue);
 	}
-	
-
-//	@Test
-//	public void getNGramsFromServiceReturnFalseTest() throws NGramException {
-//		boolean testFalse = teststore.getNGramsFromService("" , 0);
-//		assertEquals(false, testFalse);
-//	}
 	
 	@Test
 	public void Test_addNGram_NewContext() throws NGramException {
