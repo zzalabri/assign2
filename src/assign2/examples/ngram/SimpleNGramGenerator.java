@@ -60,7 +60,7 @@ public class SimpleNGramGenerator {
 		GenerationService service = factory.newGenerationService();
 		List<String> models = service.getModels();
 		System.out.println(models);
-		//I have used the 2013-12/5 model. Only returns 2 results - see http://weblm.research.microsoft.com/weblm/rest.svc/
+		//We have used the 2013-12/5 model. Only returns 2 results - see http://weblm.research.microsoft.com/weblm/rest.svc/
 		TokenSet tokenSet = service.generate(SimpleNGramGenerator.Key, "bing-body/2013-12/5", context, 5, null);
 		System.out.println("tokenSet" + tokenSet.getWords());
 		List<Double> logProbs = tokenSet.getProbabilities();

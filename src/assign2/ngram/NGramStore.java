@@ -20,6 +20,7 @@ import com.microsoft.research.webngram.service.GenerationService.TokenSet;
 
 
 public class NGramStore implements NGramMap {
+	
 	private HashMap<String, NGramContainer> collection;
 	private static final String Key = "068cc746-31ff-4e41-ae83-a2d3712d3e68";
 	
@@ -63,43 +64,36 @@ public class NGramStore implements NGramMap {
 	@Override
 	public boolean getNGramsFromService(String context, int maxResults)
 			throws NGramException {
-<<<<<<< HEAD
-		
-		
-=======
 		if (context == null || context.isEmpty())throw new NGramException("Invalid context");
 //		if (maxResults<=5){ throw new NGramException("Invalid maxResults");} 
 		boolean emptyToken;
 		String[] words = new String[maxResults];
->>>>>>> 7b5cf1a780568207bdcd4f2f60592d6b3a380839
 		NgramServiceFactory factory = NgramServiceFactory.newInstance(SimpleNGramGenerator.Key);
 		GenerationService service = factory.newGenerationService();
 		
 		TokenSet tokenSet = service.generate(Key, "bing-body/2013-12/5", context, 5, null);
-<<<<<<< HEAD
-
-		String[] words = new String[maxResults];
-		tokenSet.getWords().toArray(words);
-=======
 		
 		
 		emptyToken= tokenSet.getWords().isEmpty();
->>>>>>> 7b5cf1a780568207bdcd4f2f60592d6b3a380839
 		
-		List<Double> logProbs = tokenSet.getProbabilities();
-		List<Double> probs = new ArrayList<Double>();
-		
-		for (Double x : logProbs) {
-			probs.add(Math.pow(10.0,x));
-		}
-		
-		Double[] probabilities = new Double[maxResults];
-		probs.toArray(probabilities);	
-
-		if (words.length > 0) {
+		if(!emptyToken){
+			tokenSet.getWords().toArray(words);
+			
+			List<Double> logProbs = tokenSet.getProbabilities();
+			List<Double> probs = new ArrayList<Double>();
+			
+			for (Double x : logProbs) {
+				probs.add(Math.pow(10.0,x));
+			}
+			
+			Double[] probabilities = new Double[maxResults];
+			probs.toArray(probabilities);	
+			
 			NGramNode ngram = new NGramNode(context, words, probabilities);
-			addNGram(ngram);		
+			addNGram(ngram);
+			
 			return true;
+			
 		}else{
 			return false;
 		}

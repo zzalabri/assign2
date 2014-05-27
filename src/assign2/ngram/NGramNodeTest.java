@@ -178,12 +178,12 @@ public class NGramNodeTest {
 		testNode2 = new NGramNode(words, predictions, probabilities);
 	}
 				
-	@Test
-	(expected=NGramException.class)
-	public void SizeEmptyTestWordsConstructorProbabilities() throws NGramException {
-		Double[] testDouble = {};
-		testNode2 = new NGramNode(words, predictions, testDouble);
-	}
+	//@Test
+	//(expected=NGramException.class)
+	//public void SizeEmptyTestWordsConstructorProbabilities() throws NGramException {
+	//	Double[] testDouble = {};
+	//	testNode2 = new NGramNode(words, predictions, testDouble);
+	//}
 		
 	@Test
 	(expected=NGramException.class)
@@ -195,7 +195,7 @@ public class NGramNodeTest {
 	@Test
 	(expected=NGramException.class)
 	public void ZeroTestWordsConstructorProbabilitiesContains() throws NGramException {
-		Double[] testDouble = {};
+		Double[] testDouble = {0.0};
 		testNode2 = new NGramNode(words, predictions, testDouble);
 	}
 		

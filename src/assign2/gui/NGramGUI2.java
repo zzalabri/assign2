@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.swing.BorderFactory;
@@ -122,74 +123,64 @@ public class NGramGUI2 extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent arg) {
 		String buttonString = arg.getActionCommand();
 		String result = "";
+		Pattern pattern = Pattern.compile("[^\\w\\s,]");
+	    Matcher matcher = pattern.matcher("");
+	    boolean invalidInput= false;
 		NGramStore store = new NGramStore();
 		String[] contexts = {};
 		
 		if (buttonString.equals("Search")) {
-<<<<<<< HEAD
-            if(txtContext.getText() == null || txtContext.getText().equals("") || Pattern.matches(REGEX, txtContext.getText())  ) {
-=======
-            //if(txtContext.getText() == null || txtContext.getText().equals("") || Pattern.matches(REGEX, txtContext.getText())  ) {
-			if( Pattern.matches(REGEX, txtContext.getText())  ) {
->>>>>>> 7b5cf1a780568207bdcd4f2f60592d6b3a380839
-                result += "Invalid Input ";
-            } else {
-
-                contexts = txtContext.getText().split(",");
-                if (contexts.length > MAX_RESULTS  ) {
-                  result += "Invalid context ";
-                } else {
-                    for (String context : contexts) {
-<<<<<<< HEAD
-                       result += "NGram Results for Query: " + context + "\n";
-=======
-                       result += "\nNGram Results for Query: " + context + "\n\n";
->>>>>>> 7b5cf1a780568207bdcd4f2f60592d6b3a380839
-                        try {
-                        	if (!(store.getNGramsFromService(context, MAX_RESULTS))){
-                        		result += "No results for this contexts.";
-                        	} else {
-                        		result += store.getNGram(context).toString();
-                        	}
-<<<<<<< HEAD
-                        } catch (NGramException nex) {
-                            result += "No results for this contexts.";
-                        }
-                    }
-                }
-=======
-                        	
-                       
-                     //produce the bar chart
-		  	chartCereator(store, contexts);  
-			
-                } catch (NGramException nex) {
-                            result += "No results for this contexts.";
-                        }
-                    
-                  }
-                 
-                
-                }// end else
->>>>>>> 7b5cf1a780568207bdcd4f2f60592d6b3a380839
+            if(txtContext.getText() == null || txtContext.getText().equals("") )
+            	result+= "Please enter some text...";
+            
+            else{
+			    matcher = pattern.matcher(txtContext.getText());
+			    invalidInput= matcher.find();
+			    
+				if( invalidInput  ) {
+	                result += "Invalid Input ";
+	            } else {
+	            	
+	                contexts = txtContext.getText().split(",");
+	                if (contexts.length > MAX_RESULTS  ) {
+	                  result += "Invalid context ";
+	                } else {
+	                    for (String context : contexts) {
+	                       result += "\nNGram Results for Query: " + context + "\n\n";
+	                        try {
+	                        	if (!(store.getNGramsFromService(context, MAX_RESULTS))){
+	                        		result += "No results for this contexts.";
+	                        	} else {
+	                        		result += store.getNGram(context).toString();
+	                        	}
+	                        	
+	                        	//produce the bar chart
+	                		  	chartCereator(store, contexts);
+	                		  	
+	                        } catch (NGramException nex) {
+	                        	result += "No results for this contexts.";
+	                        	}
+	                    }
+	                }
+	            }
+	
+				((ResultPanel) resultPanel).updateText(result);
             }
-
-			((ResultPanel) resultPanel).updateText(result);
-			
-<<<<<<< HEAD
-=======
-			
-			
->>>>>>> 7b5cf1a780568207bdcd4f2f60592d6b3a380839
+            
 		} else if (buttonString.equals("Result")) {
 			resultPanel.setVisible(true);
-			resultChartPanel.setVisible(false);
+			btnChart.setVisible(false);
+//			textPanel.setVisible(true);
+//			chartPanel.setVisible(false);
 		} else if (buttonString.equals("Chart")) {
-			//CreateResultChartPanel();
-			resultPanel.setVisible(false);
 			resultChartPanel.setVisible(true);
+			resultPanel.setVisible(false);
 		} 
 	}
+	
+	
+	
+	
 	private void chartCereator(NGramStore store, String[] contexts)
 			throws NGramException {
 		chartResults=new BarChart(contexts, store);
