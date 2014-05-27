@@ -178,12 +178,12 @@ public class NGramNodeTest {
 		testNode2 = new NGramNode(words, predictions, probabilities);
 	}
 				
-	//@Test
-	//(expected=NGramException.class)
-	//public void SizeEmptyTestWordsConstructorProbabilities() throws NGramException {
-	//	Double[] testDouble = {};
-	//	testNode2 = new NGramNode(words, predictions, testDouble);
-	//}
+	@Test
+	(expected=NGramException.class)
+	public void SizeEmptyTestWordsConstructorProbabilities() throws NGramException {
+		Double[] testDouble = {};
+		testNode2 = new NGramNode(words, predictions, testDouble);
+	}
 		
 	@Test
 	(expected=NGramException.class)
